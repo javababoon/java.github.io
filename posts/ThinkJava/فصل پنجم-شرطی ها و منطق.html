@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="نتیجۀ حاصل از یک عملگر رابطه ای، یکی از این دو مقدار است: true یا false. این مقادیر به نوع دادۀ boolean تعلق دارند.">
+
+    <title>فصل پنجم: شرطی ها و منطق</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../rtl/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../../css/modern-business.css" rel="stylesheet">
+	<link href="../../css/custom.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+    <link href="../../prism/prism.css" rel="stylesheet">
+	
+</head>
+
+<body>
+
+  <!-- Navigation -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark fixed-top" style="background-color: #0D161C;">
+      <div class="container">
+	  <a class="navbar-brand" href="http://javababoon.ir" style=" color: #D4B796;">جاوا بابون</a>
+      </div>
+    </nav>
+  <!-- End Of Navigation-->
+
+  <!-- Page Content -->
+  <div class="container">
+    <div class="row">
+
+      <!-- Blog Entries Column -->
+      <div class="col-md-8">
+
+ <div class="card mb-4">
+          <div class="card-body">
+		  
+		  <div style="background-image: linear-gradient(90deg, #D4B796, #807971, #0D161C);">
+		  <h1 class="card-title" style="padding: 15px; color: white;">فصل پنجم</h1><hr>
+		  </div>		  
+
+            <h2 class="card-title">شرطی ها و منطق
+		<br>	<small>(Conditionals and Logic)</small>
+			</h3><hr>	
+
+برنامه هایی که در فصل های گذشته نوشتیم را هر زمان اجرا کنید صرف نظر از ورودی، همان کار قبلی را انجام می دهند. برنامه ها برای محاسبات پیچیده تر
+معمولا نسبت به ورودی واکنش نشان داده، شرایط خاص را بررسی می کنند و نتایجی قابل اجرا تولید می کنند. در این فصل ویژگی هایی از زبان جاوا 
+را که در تصمیم گیری و بیان منطق کاربرد دارند معرفی می کنیم.
+<br><br>
+<h3 class="card-title">5.1 عملگرهای رابطه ای
+	<br>	<small>(Relational Operators)</small>
+	</h2><hr>
+جاوا دارای 6 عملگر رابطه ای است که رابطۀ میان دو مقدار را بررسی می کنند (از جمله اینکه آیا با هم برابر هستند یا خیر، یا اینکه آیا
+یکی از آنها بزرگتر از دیگری است یا خیر). عبارت های زیر نحوۀ استفاده از آنها را نشان می دهند:
+ <pre>
+<code class="language-PowerShell">x == y // x is equal to y
+x != y // x is not equal to y
+x > y // x is greater than y
+x < y // x is less than y
+x >= y // x is greater than or equal to y
+x <= y // x is less than or equal to y
+</code></pre>
+
+نتیجۀ حاصل از یک عملگر رابطه ای، یکی از این دو مقدار است: true یا false. این مقادیر به نوع دادۀ boolean تعلق دارند که به افتخار ریاضیدانی به نام
+جورج بول به این اسم نامیده می شود. جورج بول روشی جبری برای بیان منطق ارائه داد.
+<br>
+شما احتمالا با این عملگرها آشنا هستید اما توجه کنید که نمادهایی مانند = ،
+<img class="" src="../../static/ThinkJava-5/نامساوی.png" alt="Card image cap">
+، و ≥ در جاوا تفاوت هایی با این نمادها در ریاضیات دارند. یک خطای رایج
+استفاده از نماد = به تنهایی به جای استفاده از دوتا از آنها == در کنار یکدیگر به هنگام مقایسۀ دو مقدار است. به یاد داشته باشید که = عملگر مقداردهی است و 
+== عملگر رابطه ای است. همچنین عملگرهای >=  و <= در جاوا وجود ندارند [علامت مقداردهی باید بعد از علامت های بزرگتر یا کوچکتر قرار بگیرد]. 
+<br><br>
+دو سوی یک عملگر رابطه ای باید با هم سازگار باشند. برای مثال عبارت "6" > 5 نادرست است چرا که 5 از نوع int و "6" از نوع String است. موقع مقایسۀ مقادیری
+با انواع عددی متفاوت، جاوا از همان قواعد تبدیل نوعی استفاده می کند که پیشتر در عملگر مقداردهی دیدید. برای مثال جاوا وقتی عبارت 6.0 > 5 را ارزیابی می کند،
+5 را به صورت خودکار به 5.0 تبدیل می کند. 
+
+<br><br>
+<h3 class="card-title">5.2 گزارۀ if-else
+	<br>	<small>(The if-else Statement)</small>
+	</h2><hr>
+برای نوشتن برنامه های مفید، تقریبا همیشه نیازمند بررسی شرط ها و واکنش متناسب به آنها هستیم. گزاره های شرطی این توانایی را به ما می دهند. ساده ترین گزارۀ شرطی در جاوا
+گزارۀ if است:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">if (x > 0) {
+	System.out.println("x is positive");
+}
+</code></pre>
+عبارت داخل پرانتز «شرط» نامیده می شود. اگر این شرط درست یا صادق باشد، گزاره های داخل آکولاد اجرا می شوند. 
+اگر شرط غلط باشد از اجرای آن قطعه از کد جلوگیری می شود. شرط داخل پرانتز می تواند هر عبارتی از نوع بولی (boolean) باشد.
+<br>
+<div  style="background-color: lightgray; padding: 10px;">
+[در ترجمۀ متون منطق ریاضی، true را هم درست و هم صادق ترجمه کرده اند. چون در متون فارسی برنامه نویسی معمولا 
+true را درست ترجمه می کنند، در این ترجمه هم اغلب از کلمۀ درست استفاده کرده ام.]
+</div><br>
+
+دومین صورت از گزارۀ شرطی دارای دو امکان است که با if و else نشان داده می شود. هر یک از این گزاره های ممکن را branch می نامند، و شرط تعیین می کند که کدام شاخه اجرا شود:
+<br>
+<div  style="background-color: lightgray; padding: 10px;">
+[branch را در علوم کامپیوتر شاخه، شعبه، و پرش ترجمه کرده اند.
+ترجمه به پرش به این دلیل است که موجب پرش برنامه از بخشی به بخش دیگر می شود. در اینجا ترجمه به شاخه بهتر به نظر می رسد.]
+</div><br>
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">if (x % 2 == 0) {
+  System.out.println("x is even");
+} else {
+  System.out.println("x is odd");
+}
+</code></pre>
+اگر باقیماندۀ تقسیم x بر 2 برابر با 0 باشد، می دانیم که x زوج است و برنامه پیامی بر آن اساس نمایش می دهد. اگر شرط غلط باشد
+گزارۀ پرینت دوم اجرا خواهد شد. از آنجا که شرط باید یا درست یا غلط باشد، تنها فقط یکی از شاخه ها اجرا خواهد شد.
+<br><br>
+استفاده از آکولاد برای شاخه هایی که فقط یک گزاره دارند اختیاری است. بنابراین می توانیم مثال قبل را به این صورت بنویسیم:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">if (x % 2 == 0)
+  System.out.println("x is even");
+else
+  System.out.println("x is odd");
+</code></pre>
+با این وجود حتی در صورت اختیاری بودن، بهتر است که از آکولاد استفاده کنیم چون این کار از اشتباهاتی مانند اضافه کردن یک گزارۀ دیگر
+به بلاک if یا else ی که تک خطی هستند جلوگیری می کند. [یعنی بلاکی که در آن از آکولاد استفاده نشده و فرض می شود که فقط یک گزاره خواهد داشت].
+کد زیر گمراه کننده است چون در آن از قواعد دندانه دار کردن یا تورفتگی در کد استفاده نشده است:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">if (x > 0)
+  System.out.println("x is positive");
+  System.out.println("x is not zero");
+</code></pre>
+از آنجایی که شرط بالا آکولادی ندارد، فقط خط اول به عنوان بخشی از گزارۀ if محسوب می شود. آنچه که کمپایلر می بیند به صورت زیر است:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">if (x > 0) {
+  System.out.println("x is positive");
+}
+System.out.println("x is not zero");
+</code></pre>
+در نتیجه، println دوم فارغ از آنکه شرط چه باشد، اجرا می شود. حتی برنامه نویس های باتجربه نیز مرتکب چنین خطایی می شوند. در وب Apple’s "goto fail" bug
+را جستجو کنید.
+<br><br>
+توجه کنید که در تمامی مثالهای قبلی در انتهای خطوط if و else سمیکالن وجود ندارد. در عوض، بلاک جدید باید با استفاده از آکولادها تعریف شود. یکی دیگر از 
+اشتباهات رایج گذاشتن سمیکالن بعد از شرط است، مانند مثال زیر:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">int x = 1;
+if (x % 2 == 0); { // incorrect semicolon
+  System.out.println("x is even");
+}
+</code></pre>
+کد بالا کمپایل می شود اما خروجی برنامه فارغ از آنکه مقدار x چه باشد این خواهد بود: "x is even". در زیر کد نادرست دیگری را می بینید
+که البته قالب بندی (فرمت) بهتری دارد:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">int x = 1;
+if (x % 2 == 0)
+  ; // empty statement
+{
+  System.out.println("x is even");
+}
+</code></pre>
+به دلیل وجود سمیکالن بعد از شرط، گزارۀ if به گونه ای کمپایل می شود که گویی آکولادی وجود ندارد، و بلاک بعدی آن به طور مستقل اجرا می شود.
+به عنوان یک قاعدۀ کلی هر خطی از کد جاوا باید یا به سمیکالن ختم شود یا به آکولاد، نه به هر دوی آنها.
+<br><br>
+اگر آکولادهای اختیاری را حذف کنید یا گزاره های تهی و بدون خروجی بنویسید کمپایلر خطا نمی گیرد. چنین کاری در زبان جاوا غیرمجاز نیست اما
+اغلب باعث بروز باگ هایی می شود که پیدا کردن منشا آنها سخت است. ابزارهای توسعه ای مانند Checkstyle  (پیوست A.5 را ببینید) می توانند شما را
+دربارۀ این موارد و دیگر اشتباهات برنامه نویسی آگاه کنند.
+<br><br>
+<h3 class="card-title">5.3 زنجیرۀ گزاره ها و شرط های تودرتو
+	<br>	<small>(Chaining and Nesting)</small>
+	</h2><hr>
+گاهی اوقات می خواهید شرط های مرتبط با هم را بررسی و یکی از چندین عمل ممکن را انتخاب کنید. یکی از روش های انجام این کار زنجیره سازی
+مجموعه ای از بلاک های  if و else است. 
+  <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">if (x > 0) {
+  System.out.println("x is positive");
+} else if (x < 0) {
+  System.out.println("x is negative");
+} else {
+  System.out.println("x is zero");
+}
+</code></pre>
+طول این زنجیره ها می تواند به اندازۀ دلخواه شما باشد، با این وجود خواندن تعداد زیادی if-else دشوار است. یک راه 
+برای ساده سازی خواندن زنجیره های طولانی، indent کردن [دندانه دار کردن و استفاده از تورفتگی] استاندارد آنهاست که در این مثالها انجام شده است. اگر گزاره ها و آکولادها را
+به شکلی مرتب بنویسید احتمال بروز خطای سینتکس کاهش می یابد.  
+<br><br>
+توجه کنید که آخرین شاخه، else تنهاست و else if (x == 0) نیست. می دانیم که در این نقطه از زنجیره، x نه مثبت است و نه منفی.
+نیاز به آزمودن اینکه آیا x برابر با 0 است یا خیر نیست چون امکان دیگری وجود ندارد.
+<br><br>
+علاوه بر زنجیره سازی، می توانید با قراردادن یک گزارۀ شرطی داخل گزارۀ شرطی دیگر که آن را nesting می نامند تصمیمات پیچیده تری نیز بگیرید.
+می توانیم مثال قبلی را به این صورت بنویسیم:
+
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">if (x > 0) {
+  System.out.println("x is positive");
+} else {
+  if (x < 0) {
+    System.out.println("x is negative");
+  } else {
+    System.out.println("x is zero");
+  }
+}
+</code></pre>
+بیرونی ترین گزارۀ شرطی دارای دو شاخه است. اولین شاخه حاوی یک گزارۀ پرینت است و دومین شاخه حاوی گزارۀ شرطی دیگری است که خودش
+دو شاخه دارد. این دو شاخه نیز گزاره های پرینتی هستند که [مانند این مثال] هر کدام داخل گزاره هایی شرطی قرار گرفته اند. 
+<br><br>
+این نوع از ساختارهای تودرتو رایج هستند اما به سرعت می توانند ناخوانا شوند [وقتی از چندین شرط تودرتو استفاده شود.]. indent کردن
+مناسب، برای خوانا کردن ساختار کد (یا ساختار مورد نظر) برای خواننده الزامی است. 
+<br><br>
+<h3 class="card-title">5.4 گزارۀ switch
+	<br>	<small>(The switch Statement)</small>
+	</h2><hr>
+اگر نیاز به گرفتن سلسله ای از تصمیمات دارید، زنجیره سازی ممکن است موجب بلاک های else if طولانی و زائد شود. برای مثال برنامه ای را تصور کنید که 
+اعداد صحیح 1، 2 و 3 را به کلماتی مانند "one"، "two"، و "three" تبدیل می کند:
+
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">if (number == 1) {
+  word = "one";
+} else if (number == 2) {
+  word = "two";
+} else if (number == 3) {
+  word = "three";
+} else {
+  word = "unknown";
+}
+</code></pre>
+این زنجیره می تواند طولانی و طولانی تر شود، مخصوصا در برنامه های بانکداری که اعداد به صورت طولانی نوشته می شوند (مثل
+"صد و بیست و سه و 45/100 دلار"). یک راه جایگزین برای ارزیابی تمام مقادیر ممکن یک عبارت استفاده از گزارۀ switch است:
+
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">switch (number) {
+  case 1:
+    word = "one";
+    break;
+  case 2:
+    word = "two";
+    break;
+  case 3:
+    word = "three";
+    break;
+  default:
+    word = "unknown";
+    break;
+}
+</code></pre>
+بدنۀ گزارۀ switch در یک یا تعداد بیشتری بلاک case سازماندهی می شود. هر case به یک گزارۀ break ختم می شود که موجب خروج روند اجرای برنامه از بدنۀ switch می شود.
+استفاده از بلاک default اختیاری است و تنها زمانی اجرا می شود که هیچکدام از case ها صادق نباشند.
+<br><br>
+اگرچه گزاره های switch  از زنجیرۀ بلاک های else if طولانی تر به نظر می رسند، اما زمانی که چندین case امکان قرار گرفتن در یک گروه را داشته باشند
+مفید هستند:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">switch (food) {
+  case "apple":
+  case "banana":
+  case "cherry":
+    System.out.println("Fruit!");
+    break;
+  case "asparagus":
+  case "broccoli":
+  case "carrot":
+    System.out.println("Vegetable!");
+    break;
+}
+</code></pre>
+<br><br>
+<h3 class="card-title">5.5 عملگرهای منطقی
+	<br>	<small>(Logical Operators)</small>
+	</h2><hr>
+علاوه بر عملگرهای رابطه ای، جاوا سه عملگر منطقی نیز دارد. &&، ||، و !، که به ترتیب به معنی and، و or، و not هستند. حاصل این
+عملگرها مشابه معنی آنها در زبان انگلیسی [و همچنین زبان فارسی] است. برای مثال:<br><br>
+- حاصل عبارت <span dir="ltr"> x > 0 && x < 10 </span> &ensp;در صورتی true است که x بزرگتر از 0 و کوچکتر از 10 باشد.<br>
+- حاصل عبارت <span dir="ltr"> x < 0 || x > 10 </span> &ensp;در صورتی true است که حداقل یکی از شرط ها true باشد، یعنی اگر x کوچکتر از 0 یا بزرگتر از 10 باشد.<br>
+- حاصل عبارت <span dir="ltr"> (x > 0)! </span> &ensp;در صورتی true است که x بزرگتر از 0 نباشد. استفاده از پرانتز در این مثال ضروری است چون در اولیت عملگرها،
+اولیت ! از < بیشتر است.
+<br><br>
+برای آنکه حاصل عبارتی حاوی && برابر با true باشد باید هر دو سوی عملگر && برابر با true باشند. و برای آنکه حاصل عبارتی حاوی ||
+برابر با false باشد باید هر دو سوی عملگر || برابر با false باشند.
+<br><br>
+از عملگر && می توان برای ساده کردن شرط های تودرتو استفاده کرد. برای مثال کد زیر را می توان با یک شرط تنها بازنویسی کرد:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">if (x == 0) {
+  if (y == 0) {
+    System.out.println("Both x and y are zero");
+  }
+}
+</code></pre>
+
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">// combined
+if (x == 0 && y == 0) {
+  System.out.println("Both x and y are zero");
+}
+</code></pre>
+همچنین از || می توان برای ساده کردن زنجیره ای از گزاره های if استفاده کرد. در مثال زیر چون گزاره های پرینت همانند هم هستند، نیاز
+به تکرار آنها نیست:
+
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">if (x == 0) {
+  System.out.println("Either x or y is zero");
+} else if (y == 0) {
+  System.out.println("Either x or y is zero");
+}
+</code></pre>
+
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">// combined
+if (x == 0 || y == 0) {
+  System.out.println("Either x or y is zero");
+}
+</code></pre>
+
+اگر گزاره های موجود در شاخه ها با هم متفاوت باشند نمی توانیم آنها را در یک بلاک با هم ترکیب کنیم. اما جستجوی راه های مختلف برای بیان یک منطق
+مخصوصا اگر منطقی پیچیده باشد مفید است. <br><br>
+عملگرهای منطقی، عبارت دوم [عبارت سمت راست عملگر] را تنها در صورت ضرورت ارزیابی می کنند. برای مثال اگر عبارت سمت چپ || برابر با true باشد،
+جاوا عبارت سمت راست را ارزیابی نمی کند. همچنین اگر عبارت سمت چپ && برابر با false باشد، حاصل عبارت سمت راست چه true باشد و چه false، جاوا 
+آن را در نظر نخواهد گرفت.<br>
+صرف نظر کردن از عملوند دوم (در صورت امکان) را ارزیابی سریع (short-circuit evaluation) می نامند که تمثیلی است از  اتصال الکتریکی (electrical circuit).
+<br>
+<div  style="background-color: lightgray; padding: 10px;">
+[نکته ای دربارۀ ترجمۀ خط آخر: short-circuit evaluation در کتاب فرهنگ تشریحی کامپیوتر انتشارات دانشیار، «ارزیابی سریع»، و در کتاب 
+واژه نامۀ کامپیوتر انتشارات فرهنگ معاصر، ارزیابی مدار-کوتاه و ارزیابی اتصال-کوتاه ترجمه شده است. احتمالا ترجمۀ short-circuit
+به اتصال کوتاه حداقل در اینجا ترجمۀ بهتری است چون در ادامه نیز نویسنده ها آن را تمثیلی از اتصال الکتریکی می دانند. اما با این وجود در اینجا ارزیابی سریع
+را به ارزیابی اتصال کوتاه ترجیح دادم.]</div><br>
+ارزیابی سریع می تواند در زمان صرفه جویی کند، مخصوصا وقتی که ارزیابی عملوند دوم زمانبر باشد. این کار همچنین از خطاهای غیرضروری جلوگیری می کند.
+<br><br>
+<h3 class="card-title">5.6 قوانین دمورگان
+	<br>	<small>(De Morgan’s Laws)</small>
+	</h2><hr>
+گاهی باید عبارتی را که حاوی ترکیبی از عملگرهای رابطه ای و منطقی است نقض کنید. برای مثال برای تست اینکه آیا x و y هر دو غیر صفر هستند، می توان چنین
+کدی نوشت:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">if (!(x == 0 || y == 0)) {
+  System.out.println("Neither x nor y is zero");
+}
+</code></pre>
+خواندن کد بالا به دلیل استفاده از عملگر نقیض (!) و همچنین پرانتزها، دشوار است. راه بهتر برای نقض عبارات منطقی استفاده از قوانین دمورگان است:<br>
+- !(A && B) همانند
+<span dir="ltr">A! || B! </span>&ensp;
+است.<br>
+- !(A || B) همانند
+<span dir="ltr">A! && B! </span>&ensp;
+است.<br><br>
+به عبارت دیگر نقض یک عبارت منطقی مانند این است که نقیض هر یک از جملات آن را نوشته و عملگر را تغییر دهیم. عملگر ! بر && و || اولویت دارد،
+بنابراین الزامی بر گذاشتن A! و B! در داخل پرانتز نیست.<br><br>
+قوانین دمورگان در عملگرهای رابطه ای هم کاربرد دارند. در این مورد، نقیض هر یک از جملات به معنی استفاده از متضاد (opposite)عملگر رابطه ای است:
+<br>
+- <span dir="ltr">(x < 5 && y == 3)!</span>&ensp;
+	همانند
+<span dir="ltr">x >= 5 || y != 3</span>	&ensp;
+است.<br>
+- <span dir="ltr">(x >= 1 || y != 7)!</span>&ensp;
+همانند
+<span dir="ltr">x < 1 && y == 7</span>&ensp;
+	است.
+<br><br>
+خواندن این مثالها [به زبان فارسی] با صدای بلند احتمالا به درک بهتر آنها کمک می کند. برای مثال «اگر من نمی خواهم که x کوچکتر از 5
+و مقدار y برابر با 3 باشد، پس باید x بزرگتر-مساوی 5، یا y هر چیزی غیر از 3 باشد».<br><br>
+اگر به مثال قبلی [که خواندن آن سخت بود] برگردیم، شرط اصلاح شده [بر اساس قوانین دمورگان] شرط زیر خواهد بود. این شرط به زبان فارسی می گوید
+«اگر x برابر با 0 نباشد و y برابر با 0 نباشد» [«نباشد» اول عامدانه به قرینۀ لفظی حذف نشده است که اصل «ارزیابی سریع» در کلام هم جاری شود. یعنی 
+ارزیابی عبارت اول موکول به «نباشد» عبارت دوم نشود]. منطق این شرط جدید با شرط مثال قبلی یکی است، اما خواندن این کد ساده تر است:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">if (x != 0 && y != 0) {
+  System.out.println("Neither x nor y is zero");
+}
+</code></pre>
+<br><br>
+<h3 class="card-title">5.7 متغیرهای بولی
+	<br>	<small>(Boolean Variables)</small>
+	</h2><hr>
+برای ذخیرۀ یک مقدار true یا false، نیاز به یک متغیر بولی دارید. متغیرهای بولی را می توان همانند دیگر متغیرها اعلان و مقداردهی کرد. در این مثال،
+اولین خط اعلان متغیر است، مقداردهی در خط دوم قرار دارد، و سومین خط هم شامل اعلان یک متغیر بولی است و هم مقداردهی آن. <br><br>
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">boolean flag;
+flag = true;
+boolean testResult = false;
+</code></pre>
+از آنجا که حاصل ارزیابی عملگرهای رابطه ای و منطقی، مقداری بولی است، می توان حاصل مقایسه را در یک متغیر ذخیره کرد:
+
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">boolean evenFlag = (x % 2 == 0); // true if x is even
+boolean positiveFlag = (x > 0); // true if x is positive
+</code></pre>
+استفاده از پرانتزها ضروری نیست اما خواندن و درک کد را ساده تر می کند. متغیری که به این شیوه تعریف می شود را یک flag یا علامت می نامند، چون
+دربارۀ وجود (صدق) یا عدم وجود (کذب) یک شرط علامت می دهد.<br>
+می توانید از متغیرهای flag به عنوان بخشی از یک گزارۀ شرطی استفاده کنید:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">if (evenFlag) {
+  System.out.println("n was even when I checked it");
+}
+</code></pre>
+شاید استفاده از flagها در اینجا کاربردی به نظر نرسد، اما برای ساده کردن شرط های پیچیده که بعدا 
+با آنها مواجه خواهید شد کمک کننده اند. هر بخش از یک شرط را می توان در یک flag جداگانه ذخیره کرد و
+این flagها را می توان با عملگرهای منطقی ترکیب کرد.<br>
+توجه کنید که مجبور نیسیتیم شرط را به صورت if (evenFlag == true) بنویسیم. چرا که evenFlag خودش یک بولی است [یا false
+است یا true]. برای بررسی false بودن flag کافی است که نقیض آن را بنویسیم:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">if (!evenFlag) {
+  System.out.println("n was odd when I checked it");
+}
+</code></pre>
+
+به طور کلی هیچوقت نباید چیزی را با true یا false مقایسه کنید. انجام این کار کد را طولانی و ناشیانه می کند.
+<br><br>
+<h3 class="card-title">5.8 متدهای بولی
+	<br>	<small>(Boolean Methods)</small>
+	</h2><hr>
+متدها می توانند مقادیر بولی را همچون نوع های دیگر مقادیر ریترن کنند. این کار اغلب برای مخفی کردن تست شرط ها
+درون متدها مناسب است. برای مثال:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">public static boolean isSingleDigit(int x) {
+  if (x > -10 && x < 10) {
+    return true;
+  } else {
+    return false;
+  }
+}
+</code></pre>
+اسم این متد isSingleDigit است. نامگذاری متدهای بولی به صورت «سوالی» به شکلی که گویی پاسخ آنها بله/خیر است، روش رایجی است.
+از آنجا که نوع ریترن بولی است، گزارۀ ریترن باید حاوی عبارتی بولی باشد.
+<br><br>
+خود کد واضح و روشن است، با این وجود طولانی تر از آن چیزی است که می تواند باشد. به یاد داشته باشید که نوع حاصل عبارت 
+<span dir="ltr">x > -10 && x < 10</span></span>&ensp; بولی است، بنابراین اگر آن را مستقیما ریترن کنید اشتباه نکرده اید 
+(یعنی بدون استفاده از گزارۀ if):
+<br>
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">public static boolean isSingleDigit(int x) {
+  return x > -10 && x < 10;
+}
+</code></pre>
+در متد main می توانید این متد را به شیوۀ معمول فراخوانی کنید:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">System.out.println(isSingleDigit(2));
+boolean bigFlag = !isSingleDigit(17);
+</code></pre>
+خروجی خط اول true است چون 2 عددی یک رقمی است. خط دوم مقدار true را در متغیر bigFlag قرار می دهد چون
+17 یک رقمی نیست.
+<br><br>
+گزاره های شرطی اغلب متدهای بولی را فراخوانی و از حاصل آنها به عنوان شرط استفاده می کنند:
+
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">if (isSingleDigit(z)) {
+  System.out.println("z is small");
+} else {
+  System.out.println("z is big");
+}
+</code></pre>
+مثال هایی مانند این در زبان فارسی به این صورت خوانده می شوند: «اگر z یک رقمی است، پرینت کن که z کوچک است،
+در غیر اینصورت پرینت کن که z بزرگ است». <br>
+<div  style="background-color: lightgray; padding: 10px;">
+[جملۀ آخر
+ناظر بر شباهت کد بالا با زبان انگلیسی است نه فارسی. متن انگلیسی خط آخر این است: 
+<br>
+Examples like this one almost read like English: "If is single digit z, print z is
+small else print z is big."]
+</div><br>
+<br>
+<h3 class="card-title">5.9 اعتبارسنجی ورودی
+	<br>	<small>(Validating Input)</small>
+	</h2><hr>
+یکی از مهمترین تکالیف هر برنامۀ کامپیوتری اعتبار سنجی ورودی کاربر است. افراد در بسیاری از مواقع هنگام تایپ کردن
+مخصوصا در گوشی های هوشمند دچار اشتباهاتی می شوند، و ورودی های نادرست ممکن است موجب ایجاد اشکال در برنامۀ شما شود.<br>
+حتی بدتر از آن، برخی (مثلا یک هکر) ممکن است عامدانه با وارد کردن ورودی های غیرقابل انتظار سعی در نفوذ به سیستم شما داشته باشد.
+هیچوقت نباید فرض را بر این بگذارید که کاربرها الزما داده های درستی را وارد می کنند.<br><br>
+برنامۀ سادۀ زیر را در نظر بگیرید که از کاربر می خواهد عددی را وارد کند و سپس لگاریتم آن را حساب می کند:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">Scanner in = new Scanner(System.in);
+System.out.print("Enter a number: ");
+double x = in.nextDouble();
+double y = Math.log(x);
+System.out.println("The log is " + y);
+</code></pre>
+
+در ریاضیات، لگاریتم طبیعی (مبنای e) وقتی x ≤ 0، تعریف نشده است. در جاوا اگر (1-)Math.log را وارد کنید، NaN را ریترن می کند
+که مخفف "not a number" است. می توانیم چنین وضعیتی را بررسی و پیامی متناسب با آن پرینت کنیم:
+
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">if (x > 0) {
+  double y = Math.log(x);
+  System.out.println("The log is " + y);
+} else {
+  System.out.println("The log is undefined");
+}
+</code></pre>
+
+خروجی اکنون بهتر است، اما مشکل دیگری وجود دارد. اگر کاربر کلا عدد وارد نکند چه؟ اگر او به جای عدد، به عمد یا اتفاقی
+کلمه ای مانند "hello" را وارد کند چه اتفاقی می افتد؟
+
+<pre class="" >
+<code class="language-PowerShell">Exception in thread "main" java.util.InputMismatchException
+  at java.util.Scanner.throwFor(Scanner.java:864)
+  at java.util.Scanner.next(Scanner.java:1485)
+  at java.util.Scanner.nextDouble(Scanner.java:2413)
+  at Logarithm.main(Logarithm.java:8)
+</code></pre>
+اگر برنامه انتظار double داشته باشد اما کاربر رشته وارد کند، جاوا پیغام خطای "input mismatch" می دهد. 
+اگر ورودی را در ابتدا مورد آزمون قرار دهیم می توانیم از این خطای زمان اجرا جلوگیری کنیم.<br><br>
+کلاس Scanner حاوی متدی به نام hasNextDouble است که بررسی می کند که آیا ورودی بعدی را می توان به عنوان double
+تفسیر کرد یا خیر. اگر خیر، می توان پیغام خطایی را نشان داد:
+
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">if (!in.hasNextDouble()) {
+  String word = in.next();
+  System.err.println(word + "is not a number");
+}
+</code></pre>
+برخلاف in.nextLine که کل خط ورودی را ریترن می کند، متد in.next فقط توکن بعدی ورودی را ریترن می کند. می توان از in.next استفاده کرد
+و به کاربر نشان داد که کدام کلمه ای که وارد کرده است، عدد نیست.<br>
+مثال فوق همچنین از System.err استفاده می کند که یک OutputStream برای پیغام ها و اخطارهای خطاست. برخی محیط های توسعه خروجی System.err
+را با رنگی متفاوت یا در پنجره ای جدا نمایش می دهند.
+
+<br><br>
+<h3 class="card-title">5.10 مثالی از یک برنامه
+	<br>	<small>(Example Program)</small>
+	</h2><hr>
+در این فصل با عملگرهای رابطه ای و منطقی، گزاره های if، متدهای بولی، و اعتبارسنجی ورودی آشنا شدید. برنامۀ پیش رو نشان می دهد که مثالهای
+منفرد ارائه شده در بخش های قبل، چگونه یکپارچه می شوند:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">import java.util.Scanner;
+/**
+ * Demonstrates input validation using if statements.
+ */
+public class Logarithm {
+  public static void main(String[] args) {
+// prompt for input
+    Scanner in = new Scanner(System.in);
+    System.out.print("Enter a number: ");
+// check the format
+    if (!in.hasNextDouble()) {
+      String word = in.next();
+      System.err.println(word + " is not a number");
+      return;
+    }
+// check the range
+    double x = in.nextDouble();
+    if (x > 0) {
+      double y = Math.log(x);
+      System.out.println("The log is " + y);
+    } else {
+      System.out.println("The log is undefined");
+    }
+  }
+}
+</code></pre>
+
+توجه کنید که گزارۀ return به شما اجازه می دهد که پیش از آنکه روند اجرای برنامه به انتهای متد برسد از آن خارج شود. استفاده از
+return در متد main به برنامه پایان می دهد. <br>
+آنچه که در ابتدای بخش 5.9 با پنج خط کد شروع شد، اکنون برنامه ای 30 خطی است. ساخت برنامه ای قوی (و امن) اغلب نیازمند ملاحظات بیشتری 
+است که در این مثال نشان داده شد. <br>
+نوشتن کامنت در هر چند خط از کد، در سهولت درک کد کمک می کند. کامنت ها فقط به دیگران در خواندن کد شما کمک نمی کنند، بلکه به شما کمک می کنند
+آنچه را که در پی انجام آن هستید مستند کنید. در صورتی که کامنت های خوبی نوشته باشید، اگر اشتباهی در کد رخ دهد یافتن آن بسیار ساده تر خواهد بود.
+ <br><br>
+
+
+ <h3 class="card-title">5.11 واژگان
+	 	 <br>	<small>(Vocabulary)</small>	 
+ </h2><hr>
+<strong>بولی (boolean):</strong>
+نوع داده ای که تنها می تواند true یا false باشد.<br><br>
+<strong>عملگر رابطه ای (relational operator):</strong>
+عملگری که دو مقدار را با هم مقایسه کرده و مقداری بولی تولید می کند که بیانگر رابطۀ میان آنهاست.<br><br>
+<strong>گزارۀ شرطی (conditional statement):</strong>
+گزاره ای که از یک شرط استفاده می کند تا تعیین کند کدامیک از گزاره ها اجرا خواهد شد.<br><br>
+<strong>بلاک (block):</strong>
+دنباله ای از گزاره ها که با آکولاد احاطه شده و عموما به عنوان نتیجۀ یک شرط اجرا می شود.<br><br>
+<strong>شاخه (branch):</strong>
+یکی از بلاک ها در میان چندین بلاک که بعد از یک گزارۀ شرطی می آیند. برای مثال یک گزارۀ if-else دارای دو شاخه است..<br><br>
+<strong>زنجیره سازی (chaining):</strong>
+شیوه ای برای به هم پیوستن چندین گزارۀ شرطی به صورت یک دنباله.<br><br>
+<strong>نستینگ (nesting):</strong>
+گذاشتن یک گزارۀ شرطی درون یک، تعدادی، و یا همۀ شاخه های یک گزارۀ شرطی دیگر. <br><br>
+<strong>عملگر منطقی (logical operator):</strong>
+عملگری که مقادیر بولی را با هم ترکیب کرده و یک مقدار بولی تولید می کند.<br><br>
+<strong>ارزیابی سریع (short circuit):</strong>
+شیوه ای برای ارزیابی عملگرهای منطقی که عملوند دوم را تنها در صورت ضرورت ارزیابی می کند.<br><br>
+<strong>قوانین دمورگان (De Morgan’s laws):</strong>
+قواعدی ریاضیاتی که نحوۀ نوشتن نقیض یک عبارت منطقی را نشان می دهند.<br><br>
+<strong>علامت (flag):</strong>
+متغیری (معمولا بولی) که بیانگر یک شرط یا وضعیت است.<br><br>
+<strong>اعتبارسنجی (validate):</strong>
+تایید اینکه یک مقدار ورودی از نوع و در رنجی است که باید باشد .<br><br>
+<strong>هکر (hacker):</strong>
+برنامه نویسی که به سیستم های کامپیوتری نفوذ می کند. اصطلاح هکر همچنین ممکن است به فردی که از نوشتن کد لذت می برد اطلاق شود.<br><br>
+<strong> (NaN):</strong>
+یک مقدار ممیز-شناور خاص که مخفف "not a number" است.<br><br>
+ <h3 class="card-title">5.12 تمرین ها
+	 	 <br>	<small>(Exercises)</small>	 
+ </h2><hr>
+
+ کدهای این فصل در پوشۀ ch05 موجود در پوشۀ ThinkJavaCode2 قرار دارد. نحوۀ دانلود مخزن در مقدمۀ کتاب آمده است. پیش از شروع تمرین ها پیشنهاد
+می کنیم که مثال ها را کمپایل و اجرا کنید.<br><br>
+اگر هنوز پیوست A.5 را نخوانده اید، اکنون زمان مناسبی برای این کار است. در این پیوست دربارۀ Checkstyle توضیح داده شده است
+که ابزاری است برای تجزیه و تحلیل سورس کدی که نوشته اید از جنبه های مختلف.<br><br>
+<h4>تمرین 5.1:</h4>
+کد زیر را با استفاده از یک گزارۀ if تنها بازنویسی کنید:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">if (x > 0) {
+  if (x < 10) {
+    System.out.println("positive single digit number.");
+  }
+}
+</code></pre>
+<br>
+<h4>تمرین 5.2:</h4>
+اکنون که کار با گزاره های شرطی را آموخته ایم می توانیم به بازی حدس عدد تمرین 3.4 برگردیم.<br>
+باید از قبل برنامه ای داشته باشید که یک عدد تصادفی تولید کند، از کاربر بخواهد که عدد را حدس بزند، و اختلاف میان عدد حدس زده شده
+با عدد تصادفی را نمایش دهد. با انجام تغییراتی کوچک در هر زمان [چنانکه علت آن در فصول قبل ذکر شده است]، برنامه را به گونه ای تغییر دهید
+که اگر حدس کاربر از عدد تصادفی بسیار بزرگتر یا بسیار کوچکتر بود به کاربر اطلاع دهد و از کاربر بخواهد دوباره حدس بزند. <br>
+برنامه باید تا زمانی ادامه یابد که یا کاربر عدد را درست حدس بزند و یا سه بار اشتباه حدس بزند. اگر حدس وی درست بود، برنامه باید پیامی را نمایش
+دهد و اجرای برنامه به پایان برسد.<br><br>
+
+<h4>تمرین 5.3:</h4>
+آخرین قضیۀ فرما می گوید که هیچ عدد صحیح a، b، c، و nی به صورت
+<img class="" src="../../static/ThinkJava-5/فرما-جاوا-بابون.png" alt="Card image cap">
+وجود ندارد مگر آنکه 
+<img class="" src="../../static/ThinkJava-5/اثبات-قضیه-فرما.png" alt="Card image cap">
+باشد.<br><br>
+<div  style="background-color: lightgray; padding: 10px;">
+[نکتۀ مترجم: تمرین 5.3 دربارۀ آخرین قضیۀ فرما است. توضیح یک خطی کتاب دربارۀ این قضیه برای افرادی که با آن آشنا نیستند کافی به نظر نمی رسد.
+بنابراین تعریف قضیه فرما را از کتابی با نام «قضیۀ فرما»، از پوستنیکوف، ترجمۀ پرویز شهریاری در اینجا آورده ام. این تعریف با رنگ آبی مشخص شده است
+و تنها یک تغییر کوچک در آن داده ام و آن اینکه آقای شهریاری «عدد صحیح» را «عدد درست» ترجمه کرده اند و چون در جامعۀ برنامه نویسی «عدد صحیح»
+بیشتر به کار می رود آن را به جای «عدد درست» قرار داده ام. بعد از این تعریف هر چه هست ترجمۀ متن کتاب است:]
+</div>
+<br>
+<div  style="background-color: lightblue; padding: 10px;">
+جالب ترین و بی همتاترین گزارۀ فرما، قضیۀ بزرگ فرما، یا آخرین قضیۀ فرما است. این قضیه می گوید: وقتی n عدد صحیحی بزرگ تر از 2 باشد،
+معادلۀ:<br>
+<img class="" src="../../static/ThinkJava-5/قضیه-فرما-جاوا-بابون.png" alt="Card image cap">،
+<br>
+نمی تواند جواب درستی برای x، y، و z، به جز صفر داشته باشد. در ضمن می دانیم، برای n = 2، چنین عددهایی وجود دارند، از جمله 3، 4 و 5.
+در کاغذهای فرما، اثبات این قضیه برای n = 4 پیدا شده است و جالب است که این، تنها اثبات کاملی است که از فرما باقی مانده است.»
+</div><br><br>
+برنامه ای بنویسید به نام Fermat.java که چهار عدد صحیح (a، b، c، و n) از ورودی بگیرد و بررسی کند که آیا قضیۀ فرما برقرار است یا خیر.
+اگر n بزرگتر از 2 باشد و 
+<img class="" src="../../static/ThinkJava-5/قضیه-فرما-جاوا-بابون.png" alt="Card image cap">،
+برنامه باید پیغام "!Holy smokes, Fermat was wrong" رانمایش دهد، در غیر اینصورت باید این پیغام را نمایش دهد: "No, that doesn’t work.".
+<br><br>
+نکته: می توانید از Math.pow استفاده کنید.
+<br><br>
+<h4>تمرین 5.4:</h4>
+با استفاده از متغیرهای زیر عبارت های منطق را که در جدول آمده اند ارزیابی کنید. [می توانید] پاسخ خود را به صورت 
+true، false، یا error [در یک برگه] بنویسید.
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">boolean yes = true;
+boolean no = false;
+int loVal = -999;
+int hiVal = 999;
+double grade = 87.5;
+double amount = 50.0;
+String hello = "world";
+</code></pre>
+<br>
+<img class="img-fluid" src="../../static/ThinkJava-5/مثال-عبارت-های-منطق-در-جاوا.png" alt="Card image cap">،
+<br><br>
+<h4>تمرین 5.5:</h4>
+خروجی برنامۀ زیر چیست؟ بدون استفاده از کامپیوتر پاسخ بدهید.
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">public static void main(String[] args) {
+  boolean flag1 = isHoopy(202);
+  boolean flag2 = isFrabjuous(202);
+  System.out.println(flag1);
+  System.out.println(flag2);
+  if (flag1 && flag2) {
+    System.out.println("ping!");
+  }
+  if (flag1 || flag2) {
+    System.out.println("pong!");
+  }
+}
+</code></pre>
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">public static boolean isHoopy(int x) {
+  boolean hoopyFlag;
+  if (x % 2 == 0) {
+    hoopyFlag = true;
+  } else {
+    hoopyFlag = false;
+  }
+  return hoopyFlag;
+}
+</code></pre>
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">public static boolean isFrabjuous(int x) {
+  boolean frabjuousFlag;
+  if (x > 0) {
+    frabjuousFlag = true;
+  } else {
+    frabjuousFlag = false;
+  }
+  return frabjuousFlag;
+}
+</code></pre>
+هدف از این تمرین حصول اطمینان از این است که عملگرهای منطقی و روند اجرای برنامه در طول متد را درک کرده اید. 
+<br><br>
+<h4>تمرین 5.6:</h4>
+برنامه ای به نام Quadratic.java بنویسید که ریشه های 
+<img class="" src="../../static/ThinkJava-5/تمرین-ریشه-یابی-جاوا-بابون.png" alt="Card image cap">،
+را با استفاده از فرمول معادلۀ درجه دو بیابد.
+<br>
+فرمول معادله درجه دو:<br>
+<img class="" src="../../static/ThinkJava-5/تمرین-معادله-درجه-دو-جاوا-بابون.png" alt="Card image cap">
+<br><br>
+از کاربر بخواهید اعداد صحیح a، b، و c را وارد کند. دو جواب برای x پیدا کنید و نتیجه را نمایش دهید.
+<br>
+برنامۀ شما باید بتواند ورودی هایی را که تنها یک جواب یا هیچ جوابی ندارند بررسی کند. بویژه این برنامه نباید تقسیم بر صفر را انجام دهد
+یا جذر یک عدد منفی را بگیرد.<br>
+تمامی ورودی ها را اعتبار سنجی کنید. کاربر به هیچ وجه نباید پیغام خطای عدم تطابق ورودی [input mismatch exception] را ببیند. به کاربر [در صورتی 
+که ورودی مناسبی وارد نکرد] پیغام خطایی نمایش دهید که ورودی اشتباه نیز در آن موجود باشد.
+<br><br>
+<h4>تمرین 5.7:</h4>
+اگر سه تکه چوب به شما بدهند، ممکن است بتوانید با آنها یک مثلث بسازید، اما شاید هم نتوانید این کار را انجام دهید. برای مثال اگر یکی از تکه چوب ها
+12 اینچ طول داشته باشد و دوتای دیگر 1 اینچ طول داشته باشند، نمی توانید دو تکه چوب کوتاه را به گونه ای قرار دهید که به یکدیگر
+برسند. آزمون ساده ای وجود دارد که می توان با انجام آن مشخص کرد که آیا امکان تشکیل مثلث با سه ضلع مفروض وجود دارد یا خیر:
+<br><br>
+<em>
+اگر طول هر یک از سه ضلع بیشتر از مجموع طول دو ضلع دیگر باشد، این سه ضلع تشکیل مثلث نمی دهند.
+</em>
+<br><br>
+برنامه ای به نام Triangle.java بنویسید که سه ورودی از نوع صحیح [به عنوان طول ضلع ها] بگیرد و سپس در خروجی مشخص کند که آِیا با این 
+ضلع ها می توان یک مثلث تشکیل داد یا خیر. از کدی که در تمرین قبل برای اعتبارسنجی ورودی نوشتید استفاده کنید. اگر هر یک از اعداد ورودی منفی یا صفر بود
+پیغام خطایی نمایش دهید.
+
+
+
+
+          </div>
+      </div>
+
+
+      </div>
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-4">
+
+        <!-- Side Widget -->
+   <div class="card my-4 logoClass">
+	<img class="card-img-top rounded mx-auto d-block" src="../../static/image10.png" alt="Card image cap" style="width: 250px;">
+	 </div>
+
+        <!-- Categories Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">فهرست کتاب</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <ul class="list-unstyled mb-0">
+				<li>
+                    <a href="مقدمه.html">مقدمه</a>
+				 </li>
+                <li>
+                    <a href="فصل اول-برنامه نویسی کامپیوتر.html">فصل اول: برنامه نویسی کامپیوتر</a>
+				 </li>
+				  <li>
+                    <a href="فصل دوم-متغیرها و عملگرها.html">فصل دوم: متغیرها و عملگرها</a>
+                  </li>
+				  <li>
+                    <a href="فصل سوم-ورودی و خروجی.html">فصل سوم: ورودی و خروجی</a>
+                  </li>
+				  	<li>
+                    <a href="فصل چهارم-متدها و تست کردن.html">فصل چهارم: متدها و تست کردن</a>
+                  </li>
+				  	<li>
+                    <a href="فصل پنجم-شرطی ها و منطق.html">فصل پنجم: شرطی ها و منطق</a>
+                  </li>
+					  	<li>
+                    <a href="فصل ششم-حلقه ها و رشته ها.html">فصل ششم: حلقه ها و رشته ها</a>
+                  </li>
+
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </div>
+		<!-- End of Categories Widget -->
+		
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-2">
+    <div class="container">
+      <p class="m-0 text-center text-white">javababoon.ir</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+     <script src="../../rtl/jquery-3.3.1.slim.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script src="../../rtl/bootstrap.min.js"></script>
+    <!-- prism -->
+  <script src="../../prism/prism.js"></script>
+
+
+
+</body>
+
+</html>
+
+

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="در این فصل نحوۀ ذخیره سازی چندین مقدار از یک نوع را توسط یک متغیر تنها خواهید آموخت.">
+
+    <title>فصل ششم: حلقه ها و رشته ها</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../rtl/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../../css/modern-business.css" rel="stylesheet">
+	<link href="../../css/custom.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+    <link href="../../prism/prism.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- Navigation -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark fixed-top" style="background-color: #0D161C;">
+      <div class="container">
+	  <a class="navbar-brand" href="http://javababoon.ir" style=" color: #D4B796;">جاوا بابون</a>
+      </div>
+    </nav>
+  <!-- End Of Navigation-->
+
+  <!-- Page Content -->
+  <div class="container">
+    <div class="row">
+
+      <!-- Blog Entries Column -->
+      <div class="col-md-8">
+
+ <div class="card mb-4">
+          <div class="card-body">
+		  <div style="background-image: linear-gradient(90deg, #D4B796, #807971, #0D161C);">
+			  <h1 class="card-title" style="padding: 15px; color: white;">فصل هفتم</h1><hr>
+		  </div>		  
+            <h2 class="card-title">آرایه ها و رفرنس ها
+		<br>	<small>(Arrays and References)</small>
+			</h3><hr>				  
+
+تا اینجا فقط از متغیرهایی استفاده کردیم که مقادیری منفرد مانند اعداد و رشته ها را ذخیره می کردند. در این فصل نحوۀ ذخیره سازی چندین مقدار
+از یک نوع را توسط یک متغیر تنها خواهید آموخت. این ویژگی زبان جاوا شما را قادر می سازد برنامه هایی برای دستکاری حجم بیشتری از داده ها بنویسید.<br><br>
+برای مثال، تمرین 6.5 از شما می خواست بررسی کنید که آیا تمام حروف یک رشته دقیقا دوبار تکرار شده اند یا خیر. یک الگوریتم (که امید است که آن را کشف کرده باشید) 
+حلقه ای است که در رشته 26 بار می چرخد، یعنی برای هر حرف کوچک یک بار:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">// outer loop: for each lowercase letter
+for (char c = 'a'; c <= 'z'; c++) {
+// inner loop: count how many times the letter appears
+  for (int i = 0; i < str.length(); i++) {
+    ...
+// if the count is not 0 or 2, return false</code></pre>
+<br>
+این رویکرد «حلقه های تودرتو» رویکرد بهینه ای نیست، بویژه وقتی که طول رشته زیاد است. برای مثال در رمان «جنگ و صلح» بیش از 3 میلیون کاراکتر وجود دارد.
+برای پردازش کل این کتاب، حلقۀ تودرتو باید حدود 80 میلیون بار اجرا شود.
+<br><br>
+الگوریتم دیگر، مقداردهی اولیه 26 متغیر با مقدار صفر و یکبار چرخش در طول رشته و استفاده از یک گزارۀ if غول پیکر برای به روزرسانی متغیرها برای هر حرف است.
+اما چه کسی مایل است 26 متغیر اعلان کند؟<br><br>
+اینجا است که آرایه ها پا به عرصه می گذارند. می توانیم با استفاده از فقط یک متغیر، 26 عدد صحیح را ذخیره کنیم. به جای استفاده از یک گزارۀ if برای به روزرسانی هر مقدار،
+می توانیم از محاسبه برای به روزرسانی مستقیم nامین مقدار استفاده کنیم. این الگوریتم را در انتهای فصل ارائه می کنیم.
+<br><br>
+<h3 class="card-title">7.1 ایجاد آرایه ها
+	<br>	<small>(Creating Arrays)</small>
+	</h2><hr>
+یک آرایه دنباله ای از مقادیر است. مقادیر یک آرایه را اعضا یا عناصر (elements) آن آرایه می نامند. می توان آرایه ای از intها، doubleها، Stringها، یا
+هر نوع دیگری ساخت، اما تمامی مقادیر یک آرایه باید از یک نوع باشند.
+<br><br>
+برای ایجاد یک آرایه، باید یک متغیر از نوع آرایه تعریف کنید و سپس خود آرایه را بسازید. نوع آرایه ها مانند نوع های دیگر در جاوا است با این تفاوت که 
+پس از اعلان نوع، باید از کروشه ([ ]) استفاده کنید. برای مثال خطوط زیر اعلان می کنند که counts آرایه ای از نوع integer است و values آرایه ای از نوع double است.
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">int[] counts;
+double[] values;</code></pre>
+<br>
+برای ایجاد خود آرایه، باید از عملگر new استفاده کنید که آن را پیشتر در بخش 3.2 دیده اید. عملگر new حافظه ای برای آرایه تخصیص می دهد و
+مقدار تمامی اعضای آن را به صورت خودکار برابر با صفر قرار می دهد:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">counts = new int[4];
+values = new double[size];</code></pre>
+<br>
+مقداردهی اول، موجب می شود که counts به آرایه ای حاوی 4 عدد صحیح اشاره کند (refer). مقداردهی دوم، باعث می شود که values به آرایه ای از doubleها اشاره کند،
+اما تعداد اعضا بستگی به مقدار size دارد (در هنگام ایجاد آرایه).
+<br><br>
+البته، همچنین می توانید اعلان متغیر و ایجاد آرایه را تنها در یک خط انجام دهید:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">int[] counts = new int[4];
+double[] values = new double[size];</code></pre><br>
+می توانید از هر عبارت صحیحی (مادامیکه مقدار آن غیرمنفی باشد) به عنوان سایز آرایه استفاده کنید. برای مثال اگر سعی کنید آرایه ای با 4- عضو بسازید، 
+پیغام خطای NegativeArraySizeException دریافت می کنید. آرایه ای با صفر عضو مجاز است و برای هر آرایه استفادۀ خاصی وجود دارد.
+<br>
+آرایه را می توان با دنباله ای از اعضا که با یک کاما از هم جدا شده اند و داخل دو آکولاد قرار دارند مقداردهی اولیه کرد. مانند زیر:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">int[] a = {1, 2, 3, 4};
+</code></pre>
+<br>
+این گزاره متغیر آرایۀ a را می سازد به صورتی که به آرایه ای با چهار عضو اشاره می کند.
+<br><br>
+<h3 class="card-title">7.2 دستیابی به اعضا
+	<br>	<small>(Accessing Elements)</small>
+	</h2><hr>
+وقتی آرایه ای با استفاده از عمگلر new می سازید، اعضای آن با صفر مقداردهی اولیه می شوند. تصویر 7.1 دیاگرام حافظۀ آرایۀ counts را نشان می دهد.
+
+<br><br>
+<img class="" src="../../static/ThinkJava-7/دیاگرام-حافظه-آرایه-جاوا-بابون.png" alt="Card image cap">
+<br>
+<small><em>تصویر 7.1: دیاگرام حافظه برای آرایه ای از نوع int</em></small>
+
+<br><br>
+فلشی که در تصویر میبینید بیانگر این است که مقدار counts به آرایه اشاره می کند (reference). 
+<br>
+[ترجمۀ reference به «اشاره» در اینجا کاملا با معناست و تصویر ذهنی خوبی از آنچه که reference دادن انجام می دهد در ذهن ایجاد می کند. 
+به محض اینکه این تصویر ذهنی ایجاد شد، دیگر نیازی به واژۀ «اشاره» نیست و می توان از همان «رفرنس دادن» هم استفاده کرد. در ترجمۀ این کتاب با توجه 
+به متنی که واژۀ reference در آن به کار رفته، در بیشتر جاها از «اشاره کردن» و در برخی موارد از رفرنس دادن استفاده کرده ام.]
+<br>
+آرایه و متغیری که به آن اشاره می کند را باید دو چیز متفاوت در نظر بگیرید. همچنانکه به زودی خواهید دید، می توانیم متغیر دیگری را به گونه ای
+مقداردهی کنیم که به همان آرایه اشاره کند و می توانیم مقدار counts را به گونه ای تغییر دهیم که به آرایۀ دیگری اشاره کند.
+<br><br>
+اعدادی که به صورت پررنگ داخل باکس ها مشخص شده اند اعضای آرایه هستند. اعداد بیرون باکس ها که به صورت کمرنگ تر مشخص شده اند، ایندکس هایی هستند که
+به عنوان شناسه ای برای هر محل [حافظه] در آرایه استفاده می شوند. مانند رشته ها، ایندکس اولین عضو 0 است نه 1. به این دلیل گاهی اوقات به اولین
+عضو آرایه به عنوان «صفرمین» عضو اشاره می کنیم.
+<br><br>
+عملگر [ ] اعضایی از آرایه را انتخاب می کند:
+<br><br>
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">System.out.println("The zeroth element is " + counts[0]);
+</code></pre><br>
+می توانید از عملگر [ ] در هر جایی از یک عبارت استفاده کنید:
+<pre class="" >
+<code class="language-PowerShell">counts[0] = 7;
+counts[1] = counts[0] * 2;
+counts[2]++;
+counts[3] -= 60;
+</code></pre>
+
+<br>
+<img class="" src="../../static/ThinkJava-7/دیاگرام-حافظه2-آرایه-جاوا-بابون.png" alt="Card image cap">
+<br>
+<small><em>تصویر 7.2: دیاگرام حافظه بعد از استفاده از چند گزارۀ مقداردهی</em></small>
+<br><br>
+تصویر 7.2 نتیجۀ گزاره های بالا را نشان می دهد. 
+<br>
+می توانید از هر عبارتی (مادامیکه نوع آن int باشد) به عنوان ایندکس استفاده کنید. یکی از رایج ترین شیوه ها برای نوشتن ایندکس یک آرایه
+استفاده از متغیر حلقه است. برای مثال:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">int i = 0;
+while (i < 4) {
+  System.out.println(counts[i]);
+  i++;
+}
+</code></pre><br>
+این حلقۀ while از 0 تا 4 می شمارد. اگر i برابر با 4 باشد، شرط نقض می شود و حلقه پایان می یابد. بنابراین بدنۀ حلقه تنها وقتی اجرا می شود که
+i برارب با 0، 1، 2، یا 3 باشد. در این مورد اسم متغیر i مخفف «index» است.
+<br><br>
+هر بار در طول حلقه، از i به عنوان ایندکسی درون آرایه استفاده می کنیم تا عضو iام را نمایش دهیم. این نوع از پردازش آرایه معمولا به صورت یک
+حلطقۀ for نوشته می شود:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">for (int i = 0; i < 4; i++) {
+  System.out.println(counts[i]);
+}
+</code></pre><br>
+تنها ایندکس های مجاز برای آرایۀ counts عبارتند از 3 و 2، 1، 0. اگر ایندکس منفی یا بزرگتر از 3 باشد، خطای ArrayIndexOutOfBoundsException
+دریافت می کنید.
+<br><br>
+<h3 class="card-title">7.3 نمایش آرایه ها
+	<br>	<small>(Displaying Arrays)</small>
+	</h2><hr>
+می توانید از println برای نمایش یک آرایه استفاده کنید اما این کار احتمالا آنچه که انتظارش دارید را انجام نمی دهد. برای مثال اگر 
+آرایه ای مانند زیر را پرینت کنید:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">int[] a = {1, 2, 3, 4};
+System.out.println(a);
+</code></pre><br>
+خروجی چنین چیزی خواهد بود:
+<pre class="" >
+<code class="language-PowerShell">[I@bf3f7e0
+</code></pre>
+کروشه ای که در ابتدای خروجی وجود دارد بیانگر این است که این مقدار یک آرایه است، I مخفف «integer» است، و باقی خروجی 
+آدرس آرایه در حافظه است.
+<br><br>
+
+
+
+          </div>
+      </div>
+
+
+      </div>
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-4">
+
+        <!-- Side Widget -->
+   <div class="card my-4 logoClass">
+	<img class="card-img-top rounded mx-auto d-block" src="../../static/image10.png" alt="Card image cap" style="width: 250px;">
+	 </div>
+
+        <!-- Categories Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">فهرست کتاب</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <ul class="list-unstyled mb-0">
+				<li>
+                    <a href="مقدمه.html">مقدمه</a>
+				 </li>
+                <li>
+                    <a href="فصل اول-برنامه نویسی کامپیوتر.html">فصل اول: برنامه نویسی کامپیوتر</a>
+				 </li>
+				  <li>
+                    <a href="فصل دوم-متغیرها و عملگرها.html">فصل دوم: متغیرها و عملگرها</a>
+                  </li>
+				  <li>
+                    <a href="فصل سوم-ورودی و خروجی.html">فصل سوم: ورودی و خروجی</a>
+                  </li>
+				  	<li>
+                    <a href="فصل چهارم-متدها و تست کردن.html">فصل چهارم: متدها و تست کردن</a>
+                  </li>
+				  	<li>
+                    <a href="فصل پنجم-شرطی ها و منطق.html">فصل پنجم: شرطی ها و منطق</a>
+                  </li>
+				  	<li>
+                    <a href="فصل ششم-حلقه ها و رشته ها.html">فصل ششم: حلقه ها و رشته ها</a>
+                  </li>
+				  	<li>
+                    <a href="فصل هفتم-آرایه ها و رفرنس ها.html">فصل هفتم: آرایه ها و رفرنس ها</a>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </div>
+		<!-- End of Categories Widget -->
+		
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-2 ">
+    <div class="container">
+      <p class="m-0 text-center text-white">javababoon.ir</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+     <script src="../../rtl/jquery-3.3.1.slim.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script src="../../rtl/bootstrap.min.js"></script>
+    <!-- prism -->
+  <script src="../../prism/prism.js"></script>
+
+
+
+</body>
+
+</html>
+
+

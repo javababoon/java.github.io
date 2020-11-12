@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="نتیجۀ حاصل از یک عملگر رابطه ای، یکی از این دو مقدار است: true یا false. این مقادیر به نوع دادۀ boolean تعلق دارند.">
+
+    <title>فصل ششم: حلقه ها و رشته ها</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../rtl/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../../css/modern-business.css" rel="stylesheet">
+	<link href="../../css/custom.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+    <link href="../../prism/prism.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- Navigation -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark fixed-top" style="background-color: #0D161C;">
+      <div class="container">
+	  <a class="navbar-brand" href="http://javababoon.ir" style=" color: #D4B796;">جاوا بابون</a>
+      </div>
+    </nav>
+  <!-- End Of Navigation-->
+
+  <!-- Page Content -->
+  <div class="container">
+    <div class="row">
+
+      <!-- Blog Entries Column -->
+      <div class="col-md-8">
+
+ <div class="card mb-4">
+          <div class="card-body">
+		  <div style="background-image: linear-gradient(90deg, #D4B796, #807971, #0D161C);">
+			  <h1 class="card-title" style="padding: 15px; color: white;">فصل ششم</h1><hr>
+		  </div>		  
+            <h2 class="card-title">حلقه ها و رشته ها
+		<br>	<small>(Loops and Strings)</small>
+			</h3><hr>			  
+
+برای خودکارسازی تکالیف تکراری مانند جستجوی متن در اسناد اغلب از کامپیوترها استفاده می شود. انجام چنین تکالیفی بدون ارتکاب خطا
+چیزی است که کامپیوترها در آن بیشتر از انسان ها تبحر دارند.<br>
+در این فصل نحوۀ استفاده از حلقه های while و for را که برای انجام کارهای تکراری استفاده می شوند خواهید آموخت. همچنین نگاهی 
+به متدهای String خواهیم انداخت و مسائل جالبی را حل خواهیم کرد.
+<br><br>
+<h3 class="card-title">6.1 گزارۀ while
+	<br>	<small>(The while Statement)</small>
+	</h2><hr>
+با استفاده از گزارۀ while می توانیم کد مشابهی را بارها تکرار کنیم:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">int n = 3;
+while (n > 0) {
+  System.out.println(n);
+  n = n - 1;
+}
+System.out.println("Blastoff!");
+</code></pre>
+خواندن کد بالا به زبان فارسی به این صورت است: «مقدار 3 را در n قرار بده. مادامیکه n بزرگتر از 0 است، مقدار n را پرینت کن،
+و 1 واحد از n کم کن. وقتی مقدار n برابر با 0 شد، !Blastoff را پرینت کن».
+<br>
+خروجی کد بالا:
+<pre class="" >
+<code class="language-PowerShell">3 
+2 
+1
+Blastoff!
+</code></pre>
+<br>روند اجرای گزارۀ while مانند زیر است:<br>
+1. شرط داخل پرانتز را ارزیابی کن. حاصل true یا false است.<br>
+2. اگر شرط false باشد، از گزاره های داخل آکولاد صرف نظر کن.<br>
+3. اگر شرط true باشد، گزاره ها را اجرا کن و به مرحلۀ 1 برو.<br>
+<br>
+این نوع از روند اجرا را حلقه یا لوپ (loop) می نامند چون در آخرین مرحله به صورت یک حلقه به مرحلۀ اول باز می گردد.
+تصویر 6.1 این ایده را با استفاده از فلوچارت نشان می دهد:
+<br><br>
+<img class="img-fluid" src="../../static/ThinkJava-6/فلوچارت حلقۀ while در جاوا.png" alt="Card image cap">،
+<br>تصویر 6.1<br><br>
+بدنۀ لوپ باید مقدار یک متغیر یا تعداد بیشتری از آنها را به گونه ای تغییر دهد که در نهایت شرط false گردد و لوپ پایان یابد.
+در غیر اینصورت لوپ بینهایت بار تکرار خواهد شد که آن را لوپ بی نهایت یا حلقۀ بی نهایت می نامند.<br>
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">int n = 3;
+while (n > 0) {
+  System.out.println(n);
+// n never changes
+}
+</code></pre>
+مثال بالا عدد 3 را برای همیشه یا حداقل تا وقتی برنامه را نبندید پرینت می کند. دانشمندان کامپیوتر به شکلی طنزآمیز از دستورالعمل هایی 
+که بر روی شامپوها نوشته می شوند مانند «موهای خود را با شامپو ماساژ بدهید تا کف کند، موهای خود را بشویید، این کار را تکرار کنید» (Lather, rinse, repeat)،
+به عنوان مثالی از یک حلقۀ بی نهایت [به «الگوریتم شامپو» هم معروف است] یاد می کنند. 
+<br><br>
+در مثال اول، می توانیم اثبات کنیم که وقتی n مثبت باشد، لوپ پایان می یابد. اما به طور کلی گفتن اینکه 
+یک لوپ چه زمانی پایان می یابد همیشه چندان ساده نیست. برای مثال این لوپ تا زمانی که n برابر با 1 باشد (که شرط را false می کند)
+ادامه دارد:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">while (n != 1) {
+  System.out.println(n);
+  if (n % 2 == 0) { // n is even
+    n = n / 2;
+  } else { // n is odd
+    n = 3 * n + 1;
+  }
+}
+</code></pre>
+این برنامه در هر چرخه از لوپ مقدار n را نمایش می دهد و سپس زوج یا فرد بودن آن را بررسی می کند. اگر زوج باشد، مقدار تقسیم بر 2 می شود.
+اگر فرد باشد، این مقدار به 1 + 3n تغییر می یابد. برای مثال اگر اولین مقدار 3 باشد، دنبالۀ حاصل  عبارتست از: 1 ,2 ,4 ,8 ,16 ,5 ,10 ,3.
+<br><br>
+از آنجا که n گاهی افزایش و گاهی کاهش می یابد، هیچ اثبات آشکاری مبنی بر اینکه n در چه زمانی برابر با 1 خواهد شد و برنامه پایان خواهد یافت 
+وجود ندارد. برای برخی مقادیر n مانند توان های دو، می توان پایان برنامه را اثبات کرد. مثال قبل [که با 3 شروع می شود] با چنین دنباله ای پایان می یابد،
+یعنی در جایی که مقدار n در دنباله، 16 (یا 4^2) می شود.
+<br><br>
+سوال سخت این است که آیا برای این برنامه برای تمامی مقادیر n پایانی وجود خواهد داشت. تا به اینجا هیچکس نتوانسته است این را اثبات و یا رد کند!
+برای اطلاعات بیشتر این صفحه را ببینید: https://en.wikipedia.org/wiki/Collatz_conjecture.
+<br><br>
+<h3 class="card-title">6.2 افزایش و کاهش
+	<br>	<small>(Increment and Decrement)</small>
+	</h2><hr>
+در زیر مثال دیگری از لوپ while آمده است. این مثال اعداد 1 تا 5 را نمایش می دهد:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">int i = 1;
+while (i <= 5) {
+  System.out.println(i);
+  i++; // add 1 to i
+}
+</code></pre>
+مقداردهی هایی مانند 1 + i = i در لوپ ها چندان استفاده نمی شوند چون جاوا راه موجزتری برای افزودن و کاستن یک واحد ارائه کرده است.
+به طور خاص، عملگر ++ عملگر افزایش است که مانند 1 + i = i عمل می کند. و -- عملگر کاهش است که عملکردی مانند 1 - i = i دارد.
+<br><br>
+اگر می خواهید مقدار متغیری را به مقداری غیر از 1 واحد افزایش و یا کاهش دهید می توانید از =+ و =- استفاده کنید. برای مثال 2 =+ i 
+مقدار i را 2 واحد افزایش می دهد.
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">int i = 2;
+while (i <= 8) {
+  System.out.print(i + ", ");
+  i += 2; // add 2 to i
+}
+System.out.println("Who do we appreciate?");
+</code></pre>
+
+<pre class="" >
+<code class="language-PowerShell">2, 4, 6, 8, Who do we appreciate?
+</code></pre>
+<br><br>
+<h3 class="card-title">6.3 گزارۀ for
+	<br>	<small>(The for Statement)</small>
+	</h2><hr>
+حلقه هایی که تا به اینجا نوشتیم عموما 3 بخش داشتند. این حلقه ها با مقداردهی اولیۀ یک متغیر شروع شده، دارای شرطی وابسته
+به آن متغیر هستند، و کاری برای به روزرسانی آن متغیر در داخل لوپ انجام می دهند.
+<br><br>
+اجرای چند بارۀ یک کد مشابه را تکرار (iteration) می نامند. این عمل انقدر رایج است که برای آن گزارۀ دیگری به نام حلقۀ for که این عمل را
+به صورت خلاصه تری انجام می دهد وجود دارد. برای مثال می توان حلقۀ 8-6-4-2 را به صورت زیر بازنویسی کرد:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">for (int i = 2; i <= 8; i += 2) {
+  System.out.print(i + ", ");
+}
+System.out.println("Who do we appreciate?");
+</code></pre>
+حلقه های for دارای سه مولفه در داخل پرانتز هستند که با سمیکالن از هم جدا می شوند: مقدارده اولیه (initializer)، شرط (condition)، و به روزرسانی (update).
+<br><br>
+1. مقدارده اولیه فقط یک بار در ابتدای حلقه اجرا می شود و معادل خطی از کد است که پیش از گزارۀ while می آید.<br>
+2. شرط در هر چرخه از حلقه بررسی می شود. اگر false باشد، حلقه پایان می یابد. در غیر اینصورت بدنۀ حلقه (دوباره) اجرا می شود.<br>
+3. در انتهای هر تکرار، مولفۀ به روزرسانی اجرا می شود و سپس حلقه به مرحلۀ 2 [بررسی شرط] باز می گردد.
+<br><br>
+خواندن حلقۀ for اغلب ساده تر است چرا که در آن تمامی گزاره های مرتبط با حلقه در بالای حلقه قرار گرفته اند. انجام این کار موجب می شود
+تمام تمرکز شما بر گزاره های درون بدنۀ حلقه متمرکز باشد. شکل 6.2 حلقه های for را به صورت فلوچارت نشان می دهد.
+<br><br>
+<img class="img-fluid" src="../../static/ThinkJava-6/فلوچارت حلقۀ for در جاوا.png" alt="Card image cap">،
+<br>
+تصویر 6.2<br><br>
+
+تفاوت دیگری میان حلقه های for و while وجود دارد: اگر متغیری را در مولفۀ مقدارده اولیه اعلان کنید، این متغیر تنها در درون حلقۀ for در دسترس خواهد بود.
+برای مثال:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">for (int n = 3; n > 0; n--) {
+  System.out.println(n);
+}
+System.out.println("n is now " + n); // compiler error
+</code></pre>
+آخرین خط کد سعی بر نمایش n را دارد اما این کار انجام نخواهد شد. اگر می خواهید از متغیر حلقه در بیرون از حلقه استفاده کنید، باید آن
+را بیرون از حلقه اعلان کنید. مانند این:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">int n;
+for (n = 3; n > 0; n--) {
+  System.out.println(n);
+}
+System.out.println("n is now " + n);
+</code></pre>
+توجه کنید که در گزارۀ for مثال بالا، 3 = int n وجود ندارد، بلکه این گزاره فقط متغیر nی را که از پیش وجود دارد مقدار دهی می کند. 
+
+<br><br>
+<h3 class="card-title">6.4 حلقه های تودرتو
+	<br>	<small>(Nested Loops)</small>
+	</h2><hr>
+حلقه ها نیز مانند گزاره های شرطی دیگر می توانند درون یکدیگر قرار بگیرند. حلقه های تودرتو به شما اجازه می دهند
+که فرایند تکرار در حلقه را وابسته به دو متغیر کنید. برای مثال با کد زیر می توان یک جدول ضرب ساخت:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">for (int x = 1; x <= 10; x++) {
+  for (int y = 1; y <= 10; y++) {
+    System.out.printf("%4d", x * y);
+  }
+  System.out.println();
+}
+</code></pre>
+متغیرهایی مانند x و y را متغیرهای حلقه (loop variables) می نامند چون اجرای حلقه را کنترل می کنند. در این مثال اولین حلقه (حلقۀ x)
+حلقۀ بیرونی یا خارجی (outer loop) و حلقۀ دوم (حلقۀ y) حلقۀ درونی یا داخلی (inner loop) نامیده می شوند. <br>
+در مثال فوق هر حلقه گزاره های متناظرش را 10 بار تکرار می کند. حلقۀ بیرونی [وقتی مقدار x از 1 تا 10 تغییر می کند، در هر افزایش متغیر]
+تنها یک بار اجرا می شود، اما حلقۀ درونی [در هر تغییر x] از 1 تا 10، هر دفعه 10 بار اجرا می شود. در نتیجه، متد printf صد بار فراخوانی می شود.
+<br><br>
+فرمت اسپسیفایر [تصریح کنندۀ قالب بندی که پیشتر با آن آشنا شدید] 4d% مقدار x * y را هر بار با فاصله ای معادل 4 کاراکتر نمایش می دهد.
+این کار موجب می شود که فارغ از آنکه اعداد خروجی چند رقمی هستند به صورت عمودی همتراز شوند:
+<br><br>
+<img class="img-fluid" src="../../static/ThinkJava-6/ساخت-جدول-ضرب-با-زبان-جاوا.png" alt="Card image cap">
+<br><br>
+درک اینکه خروجی برنامه ردیف به ردیف نمایش داده می شود اهمیت دارد. حلقۀ داخلی تنها یک ردیف از خروجی را نمایش می دهد و سپس به خط جدید می رود.
+تکرار حلقۀ بیرونی موجب ایجاد ردیف های جدید می شود. راه دیگری برای خواندن حلقه های تودرتو مانند آنچه در این مثال است، به این صورت است: «برای هر ردیف x،
+و برای هر ستون y، ...».
+<br><br>
+<h3 class="card-title">6.5 کاراکترها
+	<br>	<small>(Characters)</small>
+	</h2><hr>
+یکی از جالب ترین مسائل در علوم کامپیوتر، جستجو در متن و دستکاری آن است. در اندکی از بخش های بعدی دربارۀ نحوۀ استفاده از حلقه ها در رشته ها بحث خواهیم کرد.
+اگرچه مثالهایی که در پی می آیند کوتاه و مختصرند، اما تکنیک های به کار رفته در آنها چه برای یک کلمه و چه برای یک میلیون کلمه مشابه است.<br><br>
+رشته ها متدی به نام charAt را ارائه می دهند. این متد یک char را ریترن می کند که نوع داده ای است که تنها یک کاراکتر را ذخیره می کند (به جای آنکه رشته ای
+از کاراکترها را ذخیره کند):
+
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">String fruit = "banana";
+char letter = fruit.charAt(0);
+</code></pre>
+آرگومان 0 یعنی ما کاراکتری را که شاخص (index) آن 0 است می خواهیم.
+[در طول این ترجمه به جای ترجمۀ index به شاخص از «ایندکس» استفاده خواهم کرد. هرچند که در مورد آرایه ها و رشته ها در جاوا ترجمۀ index به شاخص کاملا به جا است اما خود واژه ایندکس هم
+در فارسی زیاد استفاده شده و معنی آن روشن است»].  
+ایندکس های String از 0 تا 1 - n متغیر هستند (n در اینجا بیانگر طول رشته است). بنابراین کاراکتری که در متغیر letter قرار می گیرد 'b' است:
+
+<br><br>
+<img class="" src="../../static/ThinkJava-6/جستجوی-کاراکتر-در-رشته.png" alt="Card image cap">
+<br><br>
+کاراکترها نیز مانند انواع دیگر داده هایی که دیدید کار می کنند. می توانید آنها را با استفاده از عملگرهای رابطه ای مقایسه کنید:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">if (letter == 'A') {
+  System.out.println("It's an A!");
+}
+</code></pre>
+لیترال هایی از  نوع کاراکتر همچون 'A'، داخل تک کوتیشن قرار می گیرند. برخلاف لیترال هایی از نوع رشته که داخل دبل کوتیشن [یعنی ""] قرار می گیرند، لیترال های از نوع
+کاراکتر تنها می توانند یک کاراکتر داشته باشند. Escape sequence هایی مانند 't\' نیز مجازند چرا که بیانگر تنها یک کاراکتر هستند.
+<br><br>
+عملگرهای افزایش و کاهش نیز بر روی کاراکترها عمل می کنند. بنابراین حلقۀ زیر حروف الفبا را نمایش می دهد:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">System.out.print("Roman alphabet: ");
+for (char c = 'A'; c <= 'Z'; c++) {
+  System.out.print(c);
+}
+System.out.println();
+</code></pre>
+خروجی این حلقه در زیر آمده است:
+<pre class="" >
+<code class="language-PowerShell">ABCDEFGHIJKLMNOPQRSTUVWXYZ
+</code></pre>
+جاوا برای بیان کاراکترها از Unicode استفاده می کند، بنابراین رشته ها می توانند متونی را که دارای الفبایی متفاوت هستند مانند الفبای سیریلیک و یونانی 
+و همچنین زبان هایی که فاقد الفبا هستند مانند چینی ذخیره کنند. در وبسایت Unicode می توانید بیشتر در این باره بخوانید (https://unicode.org/).
+<br><br>
+در Unicode هر کاراکتر با یک کد عددی مشخص می شود که می توانید آن را به عنوان یک integer در نظر بگیرید. کدهای عددی برای حروف بزرگ یونانی از 913 تا 937
+هستند، بنابراین می توان برای نمایش الفبای یونانی چنین کدی نوشت:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">System.out.print("Greek alphabet: ");
+for (int i = 913; i <= 937; i++) {
+  System.out.print((char) i);
+}
+System.out.println();
+</code></pre>
+این مثال از تبدیل نوع برای تبدیل هر integer (که در رنج مشخص شده در حلقه وجود دارد) به کاراکتر متناظرش استفاده می کند. کد را اجرا کنید و ببینید چه اتفاقی می افتد.
+<br><br>
+<h3 class="card-title">6.6 از چه حلقه ای استفاده کنیم
+	<br>	<small>(Which Loop to Use)</small>
+	</h2><hr>
+حلقه های for و while قابلیت های یکسانی دارند. هر حلقۀ forی را می توان با حلقۀ while بازنویسی کرد و برعکس آن نیز صادق است. برای مثال می توانستیم حروف الفبا را با استفاده از 
+حلقۀ while چاپ کنیم:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">System.out.print("Roman alphabet: ");
+char c = 'A';
+while (c <= 'Z') {
+  System.out.print(c);
+  c++;
+}
+System.out.println();
+</code></pre>
+ممکن است در این فکر باشید که از هر حلقه در چه زمانی باید استفاده کرد. این بستگی به این دارد که آیا می دانید حلقه چندبار تکرار خواهد شد یا خیر.
+<br>
+حلقۀ for یک حلقۀ معین و قطعی (definite) است، یعنی ما از همان ابتدا می دانیم که حلقه چندبار قرار است تکرار شود. در مثال الفبا، ما می دانیم که
+این حلقه 26 بار تکرار خواهد شد. در این مورد بهتر است از حلقۀ for استفاده کنیم که در آن تمامی کد کنترل حلقه در یک خط قرار دارد.<br><br>
+حلقۀ while یک حلقۀ نامعین یا غیر قطعی (indefinite) است، یعنی ما نمی دانیم این حلقه چندبار تکرار خواهد شد. برای مثال موقع اعتبارسنجی ورودی کاربر
+در بخش 5.9، تشخیص اینکه کاربر چندبار مقداری اشتباه را وارد خواهد کرد غیرممکن است. در این مورد حلقۀ while مناسب تر است:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">System.out.print("Enter a number: ");
+while (!in.hasNextDouble()) {
+  String word = in.next();
+  System.err.println(word + " is not a number");
+  System.out.print("Enter a number: ");
+}
+double number = in.nextDouble();
+</code></pre>
+
+صدا زدن متد Scanner را وقتی همۀ کدهای مربوط به آن در یک خط قرار ندارند راحت تر می شود خواند. 
+<br><br>
+<h3 class="card-title">6.5 ازسرگیری در رشته ها
+	<br>	<small>(String Iteration)</small>
+	</h2><hr>
+رشته ها متدی به نام length دارند که تعداد کاراکترهای موجود در رشته را ریترن می کند. حلقۀ زیر هر یک از کاراکترهای رشتۀ fruit را در یک خط نمایش می دهد:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">for (int i = 0; i < fruit.length(); i++) {
+  char letter = fruit.charAt(i);
+  System.out.println(letter);
+}
+</code></pre>
+از آنجا که length یک متد است، باید آن را با پرانتز فراخوانی کنید (بدون استفاده از آرگومان). وقتی i برابر با طول رشته می شود، شرط false می گردد
+و حلقه پایان می یابد.<br><br>
+برای یافتن آخرین حرف یک رشته ممکن است وسوسه شوید تا کاری مانند زیر انجام دهید:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">int length = fruit.length();
+char last = fruit.charAt(length); // wrong!
+</code></pre>
+این کد کمپایل می شود اما بعد از اجرا، فراخوانی متد charAt منجر به خطای StringIndexOutOfBoundsException خواهد شد. مشکل اینجاست که
+در کلمۀ "banana" شش حرف وجود ندارد چون ما شمارش را از 0 آغاز کرده ایم، بنابراین شش حرف [موجود در banana] از 0 تا 5 ایندکس می شوند.
+برای دستیابی به آخرین کاراکتر باید از طول رشته 1 واحد کم کنید:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">int length = fruit.length();
+char last = fruit.charAt(length - 1); // correct
+</code></pre>
+بسیاری از الگوریتم های رشته، یک رشته را خوانده و رشتۀ دیگری می سازند. برای مثال برای معکوس کردن یک رشته می توانیم هر بار یک کاراکتر را [به رشتۀ جدید]
+الحاق کنیم"
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">public static String reverse(String s) {
+  String r = "";
+  for (int i = s.length() - 1; i >= 0; i--) {
+    r += s.charAt(i);
+  }
+  return r;
+}
+</code></pre>
+مقدار اولیۀ r برابر با "" است، که یک رشتۀ خالی است. حلقه در ایندکس های s با ترتیبی معکوس [از آخر به اول] ازسرگرفته می شود. در طول حلقه عملگر =+ هر بار
+کاراکتر بعدی را به r اضافه می کند. وقتی حلقه پایان می یابد، r حاوی کاراکترهای s به ترتیبی معکوس است. بنابراین نتیجۀ reverse("banana") برابر است با
+"ananab".
+
+<br><br>
+<h3 class="card-title">6.8 متد indexOf
+	<br>	<small>(The indexOf Method)</small>
+	</h2><hr>
+برای جستجوی یک کاراکتر مشخص در یک رشته، می توانید یک حلقۀ for بنویسید و از charAt مانند بخش قبلی استفاده کنید. با این وجود، کلاس String
+مشخصا برای انجام این کار متدی ارائه می کند:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">String fruit = "banana";
+int index = fruit.indexOf('a'); // returns 1
+</code></pre>
+این مثال ایندکس 'a' را در رشته پیدا می کند. اما حرف a در این رشته سه بار تکرار شده است، بنابراین در اینجا روشن نیست که متد inexOf
+چه کار می کند. بر اساس داکیومنت جاوا، این متد در این مورد ایندکس اولین حرف تکراری را ریترن می کند [در اینجا یعنی اولین a که ایندکس آن 1 است.].
+<br>
+برای یافتن ایندکس کاراکترهای تکراری دیگر، می توانید از نسخۀ دیگری از indexOf استفاده کنید که آرگومان دومی می پذیرد که محلی از رشته را مشخص می کند که جستجو برای یافتن حرف تکراری
+باید از آنجا آغاز شود:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">int index = fruit.indexOf('a', 2); // returns 3
+</code></pre>
+برای به تصویر کشیدن نحوۀ کار indexOf و دیگر متدهای String کشیدن تصویری مانند تصویر 6.3 کمک کننده است. کد بالا از ایندکس 2 شروع می کند (اولین 'n')
+و 'a' بعدی را پیدا می کند که ایندکس آن 3 است:
+
+<br><br>
+<img class="" src="../../static/ThinkJava-6/جستجوی-کاراکتر-در-رشته.png" alt="Card image cap">
+<br>
+تصویر 6.3: دیاگرام حافظه برای رشته ای حاوی شش کاراکتر
+<br><br>
+اگر کاراکتر مورد نظر در همان اولین ایندکس شروع جستجو باشد، همان ایندکس، پاسخ مسئله خواهد بود. بنابراین fruit.indexOf('a', 5) عدد 5 را ریترن می کند.
+اگر این کاراکتر در رشته موجود نباشد متد indexOf عدد 1- را ریترن می کند. از آنجا که ایندکس ها نمی توانند منفی باشند، این مقدار بیانگر این است چنین کاراکتری وجود ندارد.
+<br><br>
+همچنین می توانید از indexOf نه تنها برای یک کاراکتر تنها بلکه برای جستجوی یک رشتۀ کامل استفاده کنید. برای مثال عبارت fruit.indexOf("nan") عدد 2 را ریترن می کند.
+<br><br>
+<h3 class="card-title">6.9 زیررشته ها
+	<br>	<small>(Substrings)</small>
+	</h2><hr>
+	
+به علاوۀ جستجوی رشته ها، اغلب نیاز داریم بخش هایی از رشته ها را استخراج کنیم. متد substring دو ایندکس را به عنوان آرگومان می پذیرد و
+بر آن اساس حروفی از رشتۀ موجود را در رشته ای جدید کپی کرده و ریترن می کند:
+<br><br>
+- fruit.substring(0, 3) رشتۀ "ban" را ریترن می کند<br>
+- fruit.substring(2, 5) رشتۀ "nan" را ریترن می کند<br>
+- fruit.substring(6, 6) رشتۀ خالی "" را ریترن می کند.<br><br>
+
+توجه کنید که کاراکتری که با دومین ایندکس مشخص شده است جزئی از رشتۀ جدید نیست. تعریف substring به این شیوه برخی از عملیات های رایج را تسهیل می کند.
+برای مثال برای انتخاب یک زیررشته با طول len که از ایندکس i شروع می شود می توانید بنویسید: fruit.substring(i, i + len).
+<br><br>
+مانند اغلب متدهای رشته ها، substring نیز overload می شود. یعنی نسخه های دیگری از substring با پارامترهای متفاوت وجود دارد. اگر این متد با یک آرگومان
+فراخوانی شود، حروف رشته را از آن ایندکس تا انتهای رشته ریترن می کند:
+<br><br>
+- fruit.substring(0) رشتۀ "banana" را ریترن می کند<br>
+- fruit.substring(2) رشتۀ "nana" را ریترن می کند<br>
+- fruit.substring(6) رشتۀ "" را ریترن می کند<br><br>
+
+اولین مثال یک کپی از کل رشته را ریترن می کند. دومین مثال تمامی رشته غیر از دو کاراکتر اول را ریترن می کند. چنانکه آخرین مثال نشان می دهد
+اگر آرگومان تابع برابر با طول رشته باشد، متد substring رشتۀ خالی یا تهی را نمایش می دهد.
+<br><br>
+همچنین می توانستیم برای بدست آوردن نتیجۀ "nana" از متد fruit.substring(2, fruit.length() - 1) استفاده کنیم. اما صدازدن substring تنها
+با یک آرگومان زمانی مناسب تر است که بخش انتهایی رشته ای را نیاز دارید.
+
+<br><br>
+<h3 class="card-title">6.10 مقایسۀ رشته ها
+	<br>	<small>(String Comparison)</small>
+	</h2><hr>
+هنگام مقایسۀ رشته ها ممکن است استفاده از == و =! اغوا کننده باشد. اما این هرگز کار نخواهد کرد. کد زیر کمپایل و اجرا می شود اما فارغ از آنچه که
+کاربر تایپ می کند همیشه !Goodbye را نمایش خواهد داد. 
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">System.out.print("Play again? ");
+String answer = in.nextLine();
+if (answer == "yes") { // wrong!
+  System.out.println("Let's go!");
+} else {
+  System.out.println("Goodbye!");
+}
+</code></pre>
+
+مشکل اینجاست که عملگر == بررسی می کند که آیا دو عملوند به آبجکت مشابهی اشاره می کنند یا خیر. حتی اگر مقدار متغیر answer برابر با "yes"
+باشد، این متغیر به آبجکت متفاوتی از رشتۀ لیترال "yes" در حافظه اشاره می کند. در فصل بعدی دربارۀ آبجکت ها و رفرنس ها بیشتر خواهید خواند.
+<br><br>
+نحوۀ صحیح مقایسۀ رشته ها استفاده از متد equals است، مانند زیر:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">if (answer.equals("yes")) {
+  System.out.println("Let's go!");
+}
+</code></pre>
+این مثال متد equals را بر روی متغیر answer فراخوانی می کند و "yes" را به عنوان آرگومان به آن پاس می دهد. اگر رشته ها حاوی کاراکترهای مشابهی باشند،
+متد equals مقدار true را ریترن می کند، در غیر اینصورت false را ریترن خواهد کرد.
+<br><br>
+اگر دو رشته با هم متفاوت باشند، می توانیم از متد compareTo استفاده کرده و ترتیب حروف آنها را بر اساس جایگاهشان در حروف الفبا مقایسه کنیم:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">String name1 = "Alan Turing";
+String name2 = "Ada Lovelace";
+int diff = name1.compareTo(name2);
+if (diff < 0) {
+  System.out.println("name1 comes before name2.");
+} else if (diff > 0) {
+  System.out.println("name2 comes before name1.");
+} else {
+  System.out.println("The names are the same.");
+}
+</code></pre>
+مقدار ریترن شده از compareTo، اختلاف میان اولین کاراکتر غیرمشابه رشته هاست. در کد بالا، متد compareTo عدد مثبت 8 را ریترن می کند چون حرف دوم "Ada"
+در حروف الفبا پیش از حرف دوم "Alan" قرار گرفته و 8 حرف با آن فاصله دارد.<br><br>
+اگر رشتۀ اول (رشته ای که متد بر روی آن فراخوانی شده) در حروف الفبا پیشتر از رشتۀ دوم قرار داشته باشد، اختلاف میان دو رشته منفی خواهد بود. اگر این رشته
+در حروف الفبا بعد از رشتۀ دوم قرار داشته باشد، اخلاف حاصل مثبت خواهد بود. اگر هر دو رشته معادل هم باشند، اختلاف میان آنها صفر خواهد بود.<br><br>
+هر دوی متدهای equals و compareTo به کوچک و بزرگی حروف حساس هستند. در Unicode، حروف بزرگ قبل از حروف کوچک قرار گرفته اند. بنابراین "Ada" پیش از "ada"
+قرار گرفته است.
+<br><br>
+<h3 class="card-title">6.11 فرمت کردن (قالب بندی) رشته ها
+	<br>	<small>(String Formatting)</small>
+	</h2><hr>
+در بخش 3.5 نحوۀ استفاده از System.out.printf را برای نمایش خروجی فرمت شده آموختیم. گاهی برنامه ها نیازمند ایجاد رشته هایی هستند که به شیوه ای خاص،
+قالب بندی شده باشند اما آنها را فورا (یا هرگز) نمایش ندهند. برای مثال متد زیر رشته ای از زمان را با فرمت 12 ساعته ریترن می کند:
+ <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
+<code class="language-java match-braces rainbow-braces">public static String timeString(int hour, int minute) {
+  String ampm;
+  if (hour < 12) {
+    ampm = "AM";
+    if (hour == 0) {
+      hour = 12; // midnight
+    }
+  } else {
+    ampm = "PM";
+    hour = hour - 12;
+  }
+  return String.format("%02d:%02d %s", hour, minute, ampm);  
+}   
+</code></pre>
+String.format نیز آرگومان هایی مانند System.out.printf می گیرد، یعنی یک فرمت اسپسیفایر و در پی آن دنباله ای از مقادیر. تفاوت عمده در این است که
+System.out.printf نتیجه را بر روی صفحه نمایش می دهد. String.format  یک رشتۀ جدید می سازد اما چیزی را نمایش نمی دهد.
+<br><br>
+در این مثال، فرمت اسپسیفایر 02d% یعنی «عدد صحیح دو رقمی که در صورت لزوم عدد 0 در دهگان آن قرار می گیرد» بنابراین timeString(19, 5) رشتۀ "07:05 PM" را ریترن می کند. به عنوان یک تمرین سعی کنید دو حلقۀ
+for (داخل متد main) بنویسید که متد timeString را فراخوانی کند و تمامی زمانهای ممکن را در طول 24 ساعت نمایشدهد.<br><br>
+نگاهی به مبحث String در داکیومنت جاوا بیاندازید. آگاهی از اینکه چه متدهایی در جاوا وجود دارند از ساختن دوبارۀ چرخ جلوگیری می کند. 
+ساده ترین راه برای یافتن داکیومنت کلاس های جاوا جستجوی "Java" به همراه اسم کلاس در وب است.
+<br><br>
+
+<h3 class="card-title">6.12 واژگان
+	<br>	<small>(Vocabulary)</small>
+	</h3><hr>
+
+<strong>حلقه (loop):</strong>
+ گزاره ای که دنباله ای از گزاره ها را به صورت مکرر اجرا می کند.<br><br>
+<strong>بدنۀ حلقه (loop body):</strong>
+گزاره های داخل حلقه.<br><br>
+<strong>حلقۀ بینهایت (infinite loop):</strong>
+حلقه ای که شرطش همیشه true است.<br><br>
+<strong>افزایش (increment):</strong>
+افزایش مقدار یک متغیر.<br><br>
+<strong>کاهش (decrement):</strong>
+کاهش مقدار یک متغیر.<br><br>
+<strong>ازسرگیری (iteration):</strong>
+اجرای مکرر دنباله ای از گزاره ها.<br><br>
+<strong>متغیر حلقه(loop variable):</strong>
+متغیری که مقداردهی اولیه شده، مورد آزمون قرار می گیرد و برای کنترل حلقه به روزرسانی می شود. <br><br>
+<strong>ایندکس (index):</strong>
+متغیری ار نوع صحیح یا مقداری که برای مشخص کردن یک کاراکتر در رشته استفاده می شود [این تعریف اشاره ای به آرایه ها ندارد چون مبحث آرایه ها در فصل بعد مطرح می شود.].<br><br>
+<strong>یونیکد (Unicode):</strong>
+یک استاندارد بین المللی برای نمایش کاراکترهای موجود در اغلب زبان های جهان.<br><br>
+<strong>رشتۀ تهی/رشتۀ خالی (empty string):</strong>
+رشتۀ ""، که حاوی کاراکتری نیست و طول آن صفر است.<br><br>
+<strong>overloaded:</strong>
+دو متد یا بیشتر با نامی مشابه اما [تعداد] پارامترهایی متفاوت.<br><br>
+
+          </div>
+      </div>
+
+
+      </div>
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-4">
+
+        <!-- Side Widget -->
+   <div class="card my-4 logoClass">
+	<img class="card-img-top rounded mx-auto d-block" src="../../static/image10.png" alt="Card image cap" style="width: 250px;">
+	 </div>
+
+        <!-- Categories Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">فهرست کتاب</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <ul class="list-unstyled mb-0">
+				<li>
+                    <a href="مقدمه.html">مقدمه</a>
+				 </li>
+                <li>
+                    <a href="فصل اول-برنامه نویسی کامپیوتر.html">فصل اول: برنامه نویسی کامپیوتر</a>
+				 </li>
+				  <li>
+                    <a href="فصل دوم-متغیرها و عملگرها.html">فصل دوم: متغیرها و عملگرها</a>
+                  </li>
+				  <li>
+                    <a href="فصل سوم-ورودی و خروجی.html">فصل سوم: ورودی و خروجی</a>
+                  </li>
+				  				  <li>
+                    <a href="فصل چهارم-متدها و تست کردن.html">فصل چهارم: متدها و تست کردن</a>
+                  </li>
+				  				  <li>
+                    <a href="فصل پنجم-شرطی ها و منطق.html">فصل پنجم: شرطی ها و منطق</a>
+                  </li>
+				  	<li>
+                    <a href="فصل ششم-حلقه ها و رشته ها.html">فصل ششم: حلقه ها و رشته ها</a>
+                  </li>
+
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </div>
+		<!-- End of Categories Widget -->
+		
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-2 ">
+    <div class="container">
+      <p class="m-0 text-center text-white">javababoon.ir</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+     <script src="../../rtl/jquery-3.3.1.slim.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script src="../../rtl/bootstrap.min.js"></script>
+    <!-- prism -->
+  <script src="../../prism/prism.js"></script>
+
+
+
+</body>
+
+</html>
+
+
