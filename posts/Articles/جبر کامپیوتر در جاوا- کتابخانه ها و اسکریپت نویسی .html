@@ -38,16 +38,18 @@
  <div class="card mb-4">
           <div class="card-body">
 		  <div style="background-image: linear-gradient(90deg, #D4B796, #807971, #0D161C);">
-			  <h1 class="card-title" style="padding: 15px; color: white;">فصل هفتم</h1><hr>
-		  </div>		  
-            <h2 class="card-title">آرایه ها و رفرنس ها
-		<br>	<small>(Arrays and References)</small>
-			</h3><hr>				  
+			  <h1 class="card-title" style="padding: 15px; color: white;">جبر کامپیوتر در جاوا</h1><hr>
+		  </div>
+		  
+            <h5 class="card-title">
+			Computer algebra in Java: libraries and scripting
+		<br>
+		<small>(Authors: Raphael Jolly, Heinz Kredel)</small>
+			</h5><hr>				  
 
-تا اینجا فقط از متغیرهایی استفاده کردیم که مقادیری منفرد مانند اعداد و رشته ها را ذخیره می کردند. در این فصل نحوۀ ذخیره سازی چندین مقدار
-از یک نوع را توسط یک متغیر تنها خواهید آموخت. این ویژگی زبان جاوا شما را قادر می سازد برنامه هایی برای دستکاری حجم بیشتری از داده ها بنویسید.<br><br>
-برای مثال، تمرین 6.5 از شما می خواست بررسی کنید که آیا تمام حروف یک رشته دقیقا دوبار تکرار شده اند یا خیر. یک الگوریتم (که امیدواریم آن را کشف کرده باشید) 
-حلقه ای است که در رشته 26 بار می چرخد، یعنی برای هر حرف کوچک یک بار:
+چگونه یک زبان اسکریپت نویسی را برای جبر کامپیوتر تبدیل به یک زبان منحصر به زمینه کنیم.
+<h4>خلاصه</h4>
+ما دو سیستم جبر کامپیوتر 
  <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
 <code class="language-java match-braces rainbow-braces">// outer loop: for each lowercase letter
 for (char c = 'a'; c <= 'z'; c++) {
@@ -408,18 +410,7 @@ for (int i = 0; i < counts.length; i++) {
 <br><br>
 این کد کار می کند، اما آنچنان که باید بهینه نیست. هر بار که حلقه متد inRange را فراخوانی می کند، تمام آرایه را مورد پیمایش قرار می دهد. 
 ؟؟
-<br><br>
-ما از پیش می دانیم که هر نمره در کدام طبقه قرار می گیرد. می توانیم از آن مقدار برای افزایش شمارندۀ متناظر استفاده کنیم؟؟ این کد 
-برای تولید هیستوگرام تنها یک بار نمرات آرایه را پیمایش می کند.
-  <pre class="line-numbers" data-src="HelloWorld.java" data-download-link>
-<code class="language-java match-braces rainbow-braces">int[] counts = new int[100];
-for (int i = 0; i < scores.length; i++) {
-  int index = scores[i];
-  counts[index]++;
-}
-</code></pre><br>
-این کد در طول حلقه هر بار یک عضو را انتخاب می کند و از آن به عنوان ایندکس برای افزایش عضو متناظر counts استفاده می کند. این کد بسیار
-بهینه تر است چرا که تنها یک بار نمرات آزایه را می پیماید.
+
 
 
 
