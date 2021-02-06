@@ -18,6 +18,10 @@
 	<link href="../../css/custom.css" rel="stylesheet">
     <link href="../../css/style.css" rel="stylesheet">
     <link href="../../prism/prism.css" rel="stylesheet">
+	
+	<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
 </head>
 
 <body>
@@ -524,6 +528,15 @@ n\ یک escape sequence است یا به عبارتی دو کاراکتر است
           </div>
       </div>
 
+	      
+	      
+<!--comments section-START-->	      
+ <div id="gitalk-container"></div>
+<!--comments section-END-->	
+	      
+	      
+	      
+	      
 
       </div>
       <!-- Sidebar Widgets Column -->
@@ -596,6 +609,23 @@ n\ یک escape sequence است یا به عبارتی دو کاراکتر است
   <script src="../../prism/prism.js"></script>
 
 
+	
+	<!--comments script-STRAT-->
+	<script>
+const gitalk = new Gitalk({
+  clientID: 'dc7c40c7f8c4132f27ef',
+  clientSecret: 'd01ce59ef07d61d4bb1d619388b6d79fbfa77060',
+  repo: 'https://github.com/javababoon/javababoon.github.io',
+  owner: 'javababoon',
+  admin: ['javababoon'],
+  id: location.pathname,
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('gitalk-container')
+</script>
+	<!--comments script-END-->
+	
 
 </body>
 
